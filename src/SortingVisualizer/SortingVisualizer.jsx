@@ -15,7 +15,7 @@ export default class SortingVisualizer extends React.Component {
   resetArray() {
     //creates array
     const array = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 40; i++) {
       array.push(randomInt(5, 500));
     }
     this.setState({array});
@@ -34,12 +34,26 @@ export default class SortingVisualizer extends React.Component {
     const index = 0;
     return (<div className="container">
       <div className="nav-bar">
-        <button onClick={() => this.resetArray()}>Shuffle</button>
-        <button onClick={() => this.mergeSort()}>Merge Sort</button>
-        <button onClick={() => this.quickSort()}>Quick Sort</button>
-        <button onClick={() => this.pancakeSort()}>Pancake Sort</button>
-        <button onClick={() => this.heapSort()}>Heap Sort</button>
-        <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+          <button type="button" class="btn btn-secondary boot-background boot-color" onClick={() => this.resetArray()}>
+            Shuffle
+          </button>
+        </div>
+        <button type="button" class="btn btn-outline-secondary boot-background boot-color" onClick={() => this.mergeSort()}>
+          Merge Sort
+        </button>
+        <button type="button" class="btn btn-outline-secondary boot-background boot-color" onClick={() => this.quickSort()}>
+          Quick Sort
+        </button>
+        <button type="button" class="btn btn-outline-secondary boot-background boot-color" onClick={() => this.pancakeSort()}>
+          Pancake Sort
+        </button>
+        <button type="button" class="btn btn-outline-secondary boot-background boot-color" onClick={() => this.heapSort()}>
+          Heap Sort
+        </button>
+        <button type="button" class="btn btn-outline-secondary boot-background boot-color" onClick={() => this.bubbleSort()}>
+          Bubble Sort
+        </button>
       </div>
       {
         array.map((value, idx) => (<div className="array-container">
