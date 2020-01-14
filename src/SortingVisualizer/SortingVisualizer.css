@@ -1,0 +1,26 @@
+.array-container{
+    display: inline-block;
+    background: yellow;
+    border: 1px solid black;
+    bottom: 0;
+    position: relative;
+}
+.array-bar {
+width: 25px;
+background: yellow;
+
+}
+.numbers{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: oblique;
+    font-weight: bold;
+    color: rgb(12, 45, 105);
+    font-size: 10px;
+}
+.nav-bar{
+    position: relative;
+    top: 80vh;
+}
+
+
+

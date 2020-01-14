@@ -1,0 +1,5 @@
+{
+    "files.exclude": {
+        "**/.node-modules": true
+    }
+}
