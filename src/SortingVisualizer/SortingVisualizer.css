@@ -2,12 +2,14 @@
     display: inline-block;
     background: rgb(195, 146, 223);
     border: 1px solid white;
-    bottom: 0;
     position: relative;
+    top: 15vh; 
+    /*remove top later*/
 }
 .array-bar {
-width: 25px;
+width: 2px;
 background: rgb(195, 146, 223);
+
 
 }
 .numbers{
