@@ -1,3 +1,5 @@
+/* Merge Sort
+ ******************************************************************************************************************************************************************************************************************************************************************************************************************** */
 export function getMergeSortAnimations(array) {
   const animations = [];
   if (array.length <= 1) 
@@ -70,5 +72,33 @@ function doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray, animati
       k, auxiliaryArray[j]
     ]);
     mainArray[k++] = auxiliaryArray[j++];
+  }
+}
+/* Bubble Sort
+ ******************************************************************************************************************************************************************************************************************************************************************************************************************** */
+export function getBubbleSortAnimations(array) {
+  const animations = [];
+  //do bubble sort
+  return animations;
+}
+
+function swap(array, i, j) {
+  const tmp = array[i];
+  array[i] = array[j];
+  array[j] = tmp;
+}
+
+function bubbleSort(array) {
+  isSorted = false;
+  while (!isSorted) {
+    lastUnsorted = array.length - 1;
+    isSorted = true;
+    for (let i = 0; i < lastUnsorted; i++) {
+      if (array[i] > array[i + 1]) {
+        swap(array[i], array[i + 1]);
+        isSorted = false;
+      }
+    }
+    lastUnsorted--;
   }
 }
