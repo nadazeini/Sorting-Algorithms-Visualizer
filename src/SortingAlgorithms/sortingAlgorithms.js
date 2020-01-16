@@ -76,29 +76,50 @@ function doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray, animati
 }
 /* Bubble Sort
  ******************************************************************************************************************************************************************************************************************************************************************************************************************** */
-export function getBubbleSortAnimations(array) {
-  const animations = [];
-  //do bubble sort
-  return animations;
+
+export function bubbleSort(mainArray, speed) {
+  var array = mainArray;
+  console.log(array);
+  var isSorted = false;
+  var iteration = 0;
+  while (!isSorted) {
+    let lastUnsorted = array.length - 1;
+    isSorted = true;
+    for (let i = 0; i < lastUnsorted - iteration; i++) {
+      if (array[i] > array[i + 1]) {
+        swap(array, array[i], array[i + 1]);
+        isSorted = false;
+      }
+    }
+    iteration++;
+  }
+  console.log(array);
+  //handleBubbleSortAnimations(animations, animate, array, speed);
+  return array;
 }
 
-function swap(array, i, j) {
+export function swap(array, i, j) {
   const tmp = array[i];
   array[i] = array[j];
   array[j] = tmp;
 }
 
-function bubbleSort(array) {
-  isSorted = false;
-  while (!isSorted) {
-    lastUnsorted = array.length - 1;
-    isSorted = true;
-    for (let i = 0; i < lastUnsorted; i++) {
-      if (array[i] > array[i + 1]) {
-        swap(array[i], array[i + 1]);
-        isSorted = false;
-      }
-    }
-    lastUnsorted--;
+/*function handleBubbleSortAnimations(animations, animate, array, speed) {
+  if (!animations.length) {
+    animate(setCurrentBubbleTwo(array.map((num, index) => index)));
+    setTimeout(() =>{
+      animate(setCurrentBubbleTwo([]));
+      animate(setCurrentSorted(array.map((num,index) => index)));
+      animate(setRunning(false));
+    },900);
+    return;
   }
-}
+  let animateFunction = animations[0].length > 3 ?
+    setArray : animations[0].length === 3 || animations[0].length === 0 ?
+      setCurrentSwappers : animations[0].length === 2 && typeof animations[0][0] === "boolean" ?
+        setCurrentSorted : setCurrentBubbleTwo;
+  animate(animateFunction(animations.shift()));
+  setTimeout(() => {
+    handleBubbleSortAnimations(animations, animate, array, speed);
+  }, speed);
+}*/

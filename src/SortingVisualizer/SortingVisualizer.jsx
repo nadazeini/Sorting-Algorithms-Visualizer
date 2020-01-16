@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./SortingVisualizer.css";
 import {getMergeSortAnimations} from "../SortingAlgorithms/sortingAlgorithms.js";
-const ANIMATION_SPEED_MS = 5;
+import {swap} from "../SortingAlgorithms/sortingAlgorithms.js";
+//import {bubbleSort} from "../SortingAlgorithms/sortingAlgorithms.js";
+const ANIMATION_SPEED_MS = 2;
 
 // This is the main color of the array bars.
 let PRIMARY_COLOR = "orange";
@@ -23,7 +25,7 @@ export default class SortingVisualizer extends React.Component {
   resetArray() {
     //creates array
     const array = [];
-    for (let i = 0; i < 270; i++) {
+    for (let i = 0; i < 20; i++) {
       array.push(randomInt(5, 500));
     }
     this.setState({array});
@@ -32,7 +34,7 @@ export default class SortingVisualizer extends React.Component {
   getValue(val) {
     return this.state.array[val];
   }
-
+  //******************************************************************************************************************************************************************************************************************************************************************************************************************** */
   mergeSort() {
     const animations = getMergeSortAnimations(this.state.array);
     for (let i = 0; i < animations.length; i++) {
@@ -68,10 +70,34 @@ export default class SortingVisualizer extends React.Component {
       }
     }
   }
+  //******************************************************************************************************************************************************************************************************************************************************************************************************************** */
+
+  //******************************************************************************************************************************************************************************************************************************************************************************************************************** */
+  bubbleSort() {
+    let array = this.state.array;
+    let swapped;
+    do {
+      swapped = false;
+      for (let i = 0; i < array.length; i++) {
+        const arrayBars = document.getElementsByClassName("array-bar");
+        const arrayBarsWithNo = document.getElementsByClassName("array-container");
+        if (array[i] > array[i + 1]) {
+          let tmp = array[i];
+          array[i] = array[i + 1];
+          array[i + 1] = tmp;
+          swapped = true;
+        }
+      }
+    } while (swapped);
+    return array;
+  }
+  getNext = i => {
+    console.log(i + 1);
+  };
+
   quickSort() {}
   pancakeSort() {}
   heapSort() {}
-  bubbleSort() {}
   inserstionSort() {}
   selectionSort() {}
 
@@ -110,6 +136,9 @@ export default class SortingVisualizer extends React.Component {
 
       {
         array.map((value, idx) => (<div className="array-container">
+          <div className="numbers" id="numbers">
+            {value}
+          </div>
           <div className="array-bar" key={idx} style={{
               height: `${value}px`
             }}/>
@@ -118,9 +147,7 @@ export default class SortingVisualizer extends React.Component {
     </div>);
   }
 }
-//<div className="numbers" id="numbers">
-//{value}
-//        </div>
+
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }

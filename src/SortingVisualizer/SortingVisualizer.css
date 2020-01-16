@@ -3,11 +3,11 @@
     background: rgb(195, 146, 223);
     border: 1px solid white;
     position: relative;
-    top: 15vh; 
-    /*remove top later*/
+    
+    /*remove top later top: 10vh; */
 }
 .array-bar {
-width: 2px;
+width: 22px;
 background: rgb(195, 146, 223);
 
 
