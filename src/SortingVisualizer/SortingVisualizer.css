@@ -1,29 +1,29 @@
-.array-container{
-    display: inline-block;
-    background: rgb(195, 146, 223);
-    border: 1px solid white;
-    position: relative;
-    
-    /*remove top later top: 10vh; */
+.array-container {
+	display: inline-block;
+	background: rgb(195, 146, 223);
+	border: 1px solid white;
+	position: relative;
+
+	/*remove top later top: 10vh; */
 }
 .array-bar {
-width: 22px;
-background: rgb(195, 146, 223);
-
-
+	width: 28px;
+	background: rgb(195, 146, 223);
 }
-.numbers{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-style: oblique;
-    font-weight: bold;
-    color: rgb(255, 255, 255);
-    font-size: 10px;
+.numbers {
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	font-weight: bold;
+	font-style: oblique;
+	color: white;
+	font-size: 12px;
 }
-.nav-bar{
-    position: relative;
-    top: 80vh;
+.nav-bar {
+	position: relative;
+	top: 80vh;
 }
-.boot-background {background-color:#ffffff;}
-.boot-color {color:rgb(195, 146, 223);}
-
-
+.boot-background {
+	background-color: #ffffff;
+}
+.boot-color {
+	color: rgb(195, 146, 223);
+}
