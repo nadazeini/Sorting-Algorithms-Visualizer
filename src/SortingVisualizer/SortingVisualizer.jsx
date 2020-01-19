@@ -5,14 +5,15 @@ import {
 	getBubbleSortAnimations
 } from '../SortingAlgorithms/sortingAlgorithms.js';
 
-const ANIMATION_SPEED_MS = 5;
 const PRIMARY_COLOR = 'rgb(195, 146, 223)';
-const SECONDARY_COLOR = 'purple';
+const SECONDARY_COLOR = 'orange';
+const THIRD_COLOR = 'orange';
 const ARRAY_LENGTH = 35;
 
 export default class SortingVisualizer extends React.Component {
 	constructor(props) {
 		super(props);
+		//this.selectSpeed = this.selectSpeed.bind(this);
 		this.state = {
 			array: [],
 			sorted: false
@@ -38,6 +39,7 @@ export default class SortingVisualizer extends React.Component {
 	//******************************************************************************************************************************************************************************************************************************************************************************************************************** */
 	mergeSort() {
 		const animations = getMergeSortAnimations(this.state.array);
+		//console.log(this.selectSpeed);
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName('array-bar');
 			const arrayBarsWithNo = document.getElementsByClassName(
@@ -59,7 +61,7 @@ export default class SortingVisualizer extends React.Component {
 					barTwoStyleNo.backgroundColor = color;
 					//num1.textContent = num2Text;
 					//num2.textContent = num1.textContent;
-				}, i * ANIMATION_SPEED_MS);
+				}, i * this.selectSpeed);
 			} else {
 				//console.log(numbersBars[barOneIdx]);
 				setTimeout(() => {
@@ -69,7 +71,7 @@ export default class SortingVisualizer extends React.Component {
 					newH = newH.toString().replace('px', '');
 					numbersBars[barOneIdx].textContent = newH;
 					barOneStyle.height = `${newHeight}px`;
-				}, i * ANIMATION_SPEED_MS);
+				}, i * this.selectSpeed);
 			}
 		}
 	}
@@ -94,13 +96,21 @@ export default class SortingVisualizer extends React.Component {
 				const barTwoStyle = arrayBars[barTwoIdx].style;
 				const barOneStyleNo = arrayBarsWithNo[barOneIdx].style;
 				const barTwoStyleNo = arrayBarsWithNo[barTwoIdx].style;
-				const color = i % 4 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+
 				setTimeout(() => {
-					barOneStyle.backgroundColor = color;
-					barTwoStyle.backgroundColor = color;
-					barOneStyleNo.backgroundColor = color;
-					barTwoStyleNo.backgroundColor = color;
-				}, i * ANIMATION_SPEED_MS);
+					//const color = i % 4 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+					if (i % 4 === 0) {
+						barOneStyle.backgroundColor = SECONDARY_COLOR;
+						barTwoStyle.backgroundColor = THIRD_COLOR;
+						barOneStyleNo.backgroundColor = SECONDARY_COLOR;
+						barTwoStyleNo.backgroundColor = THIRD_COLOR;
+					} else {
+						barOneStyle.backgroundColor = PRIMARY_COLOR;
+						barTwoStyle.backgroundColor = PRIMARY_COLOR;
+						barOneStyleNo.backgroundColor = PRIMARY_COLOR;
+						barTwoStyleNo.backgroundColor = PRIMARY_COLOR;
+					}
+				}, i * this.selectSpeed);
 			} else {
 				const [barOneIdx, newHeight] = animations[i];
 				if (barOneIdx === -1) {
@@ -114,16 +124,20 @@ export default class SortingVisualizer extends React.Component {
 				setTimeout(() => {
 					numbersBars[barOneIdx].textContent = newH;
 					barOneStyle.height = `${newHeight}px`;
-				}, i * ANIMATION_SPEED_MS);
+				}, i * this.selectSpeed);
 			}
 		}
 	}
-
+	selectSpeed(e) {
+		console.log(e.target.value);
+		return e.target.value;
+	}
 	quickSort() {}
 	pancakeSort() {}
 	heapSort() {}
 	inserstionSort() {}
 	selectionSort() {}
+
 	render() {
 		const { array } = this.state;
 		return (
@@ -137,7 +151,46 @@ export default class SortingVisualizer extends React.Component {
 						>
 							Shuffle
 						</button>
+						<div class='dropdown'>
+							<button
+								className='btn btn-secondary dropdown-toggle boot-background boot-color'
+								type='button'
+								id='dropdownMenuButton'
+								data-toggle='dropdown'
+								aria-haspopup='true'
+								aria-expanded='false'
+							>
+								Speed
+							</button>
+							<div
+								class='dropdown-menu boot-background boot-color'
+								aria-labelledby='dropdownMenuButton'
+							>
+								<button
+									class='btn btn-secondary dropdown-item boot-background boot-color'
+									value='3'
+									onClick={this.selectSpeed}
+								>
+									Fast
+								</button>
+								<button
+									class='btn btn-secondary dropdown-item boot-background boot-color'
+									value='60'
+									onClick={this.selectSpeed}
+								>
+									Normal
+								</button>
+								<button
+									class='btn btn-secondary dropdown-item boot-background boot-color'
+									value='200'
+									onClick={this.selectSpeed}
+								>
+									Slow
+								</button>
+							</div>
+						</div>
 					</div>
+
 					<button
 						type='button'
 						className='btn btn-outline-secondary boot-background boot-color'
@@ -196,7 +249,6 @@ export default class SortingVisualizer extends React.Component {
 						</div>
 						<div
 							className='array-bar'
-							
 							style={{
 								height: `${value}px`
 							}}
@@ -207,6 +259,7 @@ export default class SortingVisualizer extends React.Component {
 		);
 	}
 }
+
 function randomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }
