@@ -90,3 +90,32 @@ function doBubbleSort(auxArray, animations) {
 		}
 	}
 }
+/* Insertion Sort
+ ******************************************************************************************************************************************************************************************************************************************************************************************************************** */
+export function getInsertionSortAnimations(array) {
+	let animations = [];
+	let auxArray = array.slice();
+	doInsertionSort(auxArray, animations);
+	array = auxArray; // not needed but will see
+	return animations;
+}
+function doInsertionSort(arr, animations) {
+	const N = arr.length;
+	for (let i = 1; i < N; i++) {
+		let key = arr[i];
+		let j = i - 1;
+		animations.push([j, i]);
+		animations.push([j, i]);
+		while (j >= 0 && arr[j] < key) {
+			animations.push([j + 1, arr[j]]);
+			animations.push([j, arr[j + 1]]);
+			arr[j + 1] = arr[j];
+			j = j - 1;
+			animations.push([j + 1, arr[j]]);
+			animations.push([j, arr[j + 1]]);
+		}
+		arr[j] = key;
+		animations.push([-1, -1]);
+		animations.push([-1, -1]);
+	}
+}
