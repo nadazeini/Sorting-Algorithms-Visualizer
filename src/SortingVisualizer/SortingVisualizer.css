@@ -27,3 +27,6 @@
 .boot-color {
 	color: rgb(195, 146, 223);
 }
+.boot-hover:hover {
+	background-color: orange;
+}

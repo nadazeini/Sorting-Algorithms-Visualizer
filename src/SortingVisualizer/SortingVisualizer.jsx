@@ -4,7 +4,7 @@ import {
 	getMergeSortAnimations,
 	getBubbleSortAnimations
 } from '../SortingAlgorithms/sortingAlgorithms.js';
-
+import $ from 'jquery';
 const PRIMARY_COLOR = 'rgb(195, 146, 223)';
 const SECONDARY_COLOR = 'orange';
 const THIRD_COLOR = 'orange';
@@ -16,7 +16,9 @@ export default class SortingVisualizer extends React.Component {
 		//this.selectSpeed = this.selectSpeed.bind(this);
 		this.state = {
 			array: [],
-			sorted: false
+			sorted: false,
+			speed: 10,
+			stop: false
 		};
 	}
 	componentDidMount() {
@@ -31,15 +33,14 @@ export default class SortingVisualizer extends React.Component {
 		}
 		this.setState({ array });
 	}
-	getValue(val) {
-		return this.state.array[val];
+	seeAnother() {
+		window.location.reload();
 	}
-
 	//MERGE SORT
 	//******************************************************************************************************************************************************************************************************************************************************************************************************************** */
 	mergeSort() {
 		const animations = getMergeSortAnimations(this.state.array);
-		//console.log(this.selectSpeed);
+		this.disableButtons();
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName('array-bar');
 			const arrayBarsWithNo = document.getElementsByClassName(
@@ -61,7 +62,7 @@ export default class SortingVisualizer extends React.Component {
 					barTwoStyleNo.backgroundColor = color;
 					//num1.textContent = num2Text;
 					//num2.textContent = num1.textContent;
-				}, i * this.selectSpeed);
+				}, i * this.state.speed);
 			} else {
 				//console.log(numbersBars[barOneIdx]);
 				setTimeout(() => {
@@ -71,7 +72,7 @@ export default class SortingVisualizer extends React.Component {
 					newH = newH.toString().replace('px', '');
 					numbersBars[barOneIdx].textContent = newH;
 					barOneStyle.height = `${newHeight}px`;
-				}, i * this.selectSpeed);
+				}, i * this.state.speed);
 			}
 		}
 	}
@@ -80,6 +81,7 @@ export default class SortingVisualizer extends React.Component {
 
 	//******************************************************************************************************************************************************************************************************************************************************************************************************************** */
 	bubbleSort() {
+		this.disableButtons();
 		let array = this.state.array;
 		let animations = getBubbleSortAnimations(array);
 		for (let i = 0; i < animations.length; i++) {
@@ -110,7 +112,7 @@ export default class SortingVisualizer extends React.Component {
 						barOneStyleNo.backgroundColor = PRIMARY_COLOR;
 						barTwoStyleNo.backgroundColor = PRIMARY_COLOR;
 					}
-				}, i * this.selectSpeed);
+				}, i * this.state.speed);
 			} else {
 				const [barOneIdx, newHeight] = animations[i];
 				if (barOneIdx === -1) {
@@ -124,20 +126,74 @@ export default class SortingVisualizer extends React.Component {
 				setTimeout(() => {
 					numbersBars[barOneIdx].textContent = newH;
 					barOneStyle.height = `${newHeight}px`;
-				}, i * this.selectSpeed);
+				}, i * this.state.speed);
 			}
 		}
 	}
-	selectSpeed(e) {
-		console.log(e.target.value);
-		return e.target.value;
+	sortedArray() {
+		let toSort = this.state.array.slice();
+		console.log(toSort);
+		const sortedArray = toSort.sort(function(a, b) {
+			return a - b;
+		});
+		console.log(sortedArray);
+		return sortedArray;
 	}
 	quickSort() {}
 	pancakeSort() {}
 	heapSort() {}
 	inserstionSort() {}
 	selectionSort() {}
+	btnClickSlow() {
+		this.setState({ speed: 200 });
+	}
+	btnClickFast() {
+		this.setState({ speed: 5 });
+	}
 
+	btnClickNormal() {
+		this.setState({ speed: 80 });
+	}
+	disableButtons() {
+		document.getElementById('shuffle').disabled = true;
+		document.getElementById('speed').disabled = true;
+		document.getElementById('quick').disabled = true;
+		document.getElementById('bubble').disabled = true;
+		document.getElementById('selection').disabled = true;
+		document.getElementById('insertion').disabled = true;
+		document.getElementById('pancake').disabled = true;
+		document.getElementById('heap').disabled = true;
+		document.getElementById('merge').disabled = true;
+
+		document.getElementById('shuffle').title = 'Disabled. Click See Another';
+		document.getElementById('speed').title =
+			'Disabled while sorting, use stop button';
+		document.getElementById('quick').title =
+			'Disabled while sorting, use stop button';
+		document.getElementById('bubble').title =
+			'Disabled while sorting, use stop button';
+		document.getElementById('selection').title =
+			'Disabled while sorting, use stop button';
+		document.getElementById('insertion').title =
+			'Disabled while sorting, use stop button';
+		document.getElementById('heap').title =
+			'Disabled while sorting, use stop button';
+		document.getElementById('pancake').title =
+			'Disabled while sorting, use stop button';
+		document.getElementById('merge').title =
+			'Disabled while sorting, use stop button';
+	}
+	enableButtons() {
+		document.getElementById('shuffle').disabled = false;
+		document.getElementById('speed').disabled = false;
+		document.getElementById('quick').disabled = false;
+		document.getElementById('bubble').disabled = false;
+		document.getElementById('selection').disabled = false;
+		document.getElementById('insertion').disabled = false;
+		document.getElementById('pancake').disabled = false;
+		document.getElementById('heap').disabled = false;
+		document.getElementById('merge').disabled = false;
+	}
 	render() {
 		const { array } = this.state;
 		return (
@@ -145,97 +201,114 @@ export default class SortingVisualizer extends React.Component {
 				<div className='nav-bar'>
 					<div className='btn-group mr-2' role='group' aria-label='First group'>
 						<button
+							id='shuffle'
 							type='button'
-							className='btn btn-secondary boot-background boot-color'
+							className='btn btn-secondary boot-background boot-color boot-hover'
 							onClick={() => this.resetArray()}
 						>
 							Shuffle
 						</button>
-						<div class='dropdown'>
+						<div className='dropdown'>
 							<button
-								className='btn btn-secondary dropdown-toggle boot-background boot-color'
+								className=' dropdownMenuButton btn btn-secondary dropdown-toggle boot-background boot-color boot-hover'
 								type='button'
-								id='dropdownMenuButton'
+								id='speed'
 								data-toggle='dropdown'
 								aria-haspopup='true'
 								aria-expanded='false'
 							>
-								Speed
+								Speed <span className='caret'></span>
 							</button>
 							<div
-								class='dropdown-menu boot-background boot-color'
+								className='dropdown-menu boot-background boot-color '
 								aria-labelledby='dropdownMenuButton'
 							>
 								<button
-									class='btn btn-secondary dropdown-item boot-background boot-color'
+									className='btn btn-secondary dropdown-item boot-background boot-color boot-hover '
 									value='3'
-									onClick={this.selectSpeed}
+									onClick={this.btnClickFast.bind(this)}
 								>
 									Fast
 								</button>
 								<button
-									class='btn btn-secondary dropdown-item boot-background boot-color'
+									className='btn btn-secondary dropdown-item boot-background boot-color boot-hover '
 									value='60'
-									onClick={this.selectSpeed}
+									onClick={this.btnClickNormal.bind(this)}
 								>
 									Normal
 								</button>
 								<button
-									class='btn btn-secondary dropdown-item boot-background boot-color'
+									className='btn btn-secondary dropdown-item boot-background boot-color  boot-hover'
 									value='200'
-									onClick={this.selectSpeed}
+									onClick={this.btnClickSlow.bind(this)}
 								>
 									Slow
 								</button>
 							</div>
 						</div>
+						<button
+							id='try'
+							type='button'
+							className='btn btn-secondary boot-background boot-color boot-hover'
+							onClick={() => this.seeAnother()}
+						>
+							See Another
+						</button>
 					</div>
 
 					<button
 						type='button'
-						className='btn btn-outline-secondary boot-background boot-color'
+						id='merge'
+						className='btn btn-outline-secondary boot-background boot-color boot-hover'
 						onClick={() => this.mergeSort()}
 					>
 						Merge Sort
 					</button>
 					<button
 						type='button'
-						className='btn btn-outline-secondary boot-background boot-color'
+						id='quick'
+						className='btn btn-outline-secondary boot-background boot-color boot-hover'
 						onClick={() => this.quickSort()}
 					>
 						Quick Sort
 					</button>
 					<button
 						type='button'
-						className='btn btn-outline-secondary boot-background boot-color'
+						id='pancake'
+						className='btn btn-outline-secondary boot-background boot-color boot-hover'
 						onClick={() => this.pancakeSort()}
 					>
 						Pancake Sort
 					</button>
 					<button
 						type='button'
-						className='btn btn-outline-secondary boot-background boot-color'
+						id='heap'
+						className='btn btn-outline-secondary boot-background boot-color boot-hover'
 						onClick={() => this.heapSort()}
 					>
 						Heap Sort
 					</button>
 					<button
 						type='button'
-						className='btn btn-outline-secondary boot-background boot-color'
+						ref='btn'
+						id='bubble'
+						className='stop-propagation btn btn-outline-secondary boot-background boot-color boot-hover'
 						onClick={() => this.bubbleSort()}
 					>
 						Bubble Sort
 					</button>
 					<button
 						type='button'
-						className='btn btn-outline-secondary boot-background boot-color'
+						id='selection'
+						className='btn btn-outline-secondary boot-background boot-color boot-hover'
 						onClick={() => this.selectionSort()}
 					>
 						Selection Sort
 					</button>
 					<button
 						type='button'
-						className='btn btn-outline-secondary boot-background boot-color'
+						id='insertion'
+						className='btn btn-outline-secondary boot-background boot-color boot-hover'
 						onClick={() => this.inserstionSort()}
 					>
 						Insertion Sort
@@ -263,3 +336,16 @@ export default class SortingVisualizer extends React.Component {
 function randomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }
+/*$(document).ready(function() {
+	$('.dropdown-item').click(function() {
+		console.log($(this).text());
+	});
+});*/
+
+$(document).ready(function() {
+	$('.dropdown-menu  button').click(function() {
+		$('.dropdownMenuButton:first-child').html(
+			$(this).text() + ' <span class="caret"></span>'
+		);
+	});
+});
