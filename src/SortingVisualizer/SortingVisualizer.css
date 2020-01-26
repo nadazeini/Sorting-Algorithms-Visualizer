@@ -1,6 +1,6 @@
 .array-container {
 	display: inline-block;
-	background: purple;
+	background: orange;
 	border: 1px solid white;
 	position: relative;
 
@@ -8,7 +8,7 @@
 }
 .array-bar {
 	width: 28px;
-	background: purple;
+	background: orange;
 }
 .numbers {
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
