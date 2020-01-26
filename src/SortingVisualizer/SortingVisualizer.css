@@ -1,6 +1,6 @@
 .array-container {
 	display: inline-block;
-	background: orange;
+	background: rgb(255, 198, 92);
 	border: 1px solid white;
 	position: relative;
 
@@ -8,7 +8,7 @@
 }
 .array-bar {
 	width: 28px;
-	background: orange;
+	background: rgb(255, 198, 92);
 }
 .numbers {
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -28,5 +28,5 @@
 	color: rgb(195, 146, 223);
 }
 .boot-hover:hover {
-	background-color: orange;
+	background-color:rgb(255, 198, 92);
 }
