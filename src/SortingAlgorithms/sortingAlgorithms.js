@@ -133,3 +133,40 @@ function doInsertionSort(array, animations) {
     }
   }
 }
+/* Selection Sort
+/******************************************************************************************************************************************************************************************************************************************************************************************************************** */
+export function getSelectionSortAnimations(array) {
+  const animations = [];
+  doSelectionSort(array, animations);
+  return animations;
+}
+
+function doSelectionSort(array, animations) {
+  for (let i = 0; i < array.length - 1; i++) {
+    let min_index = i;
+    for (let j = i + 1; j < array.length; j++) {
+      animations.push([min_index, j]); //color
+      animations.push([min_index, j]); //uncolor
+      animations.push([
+        0, array[0]
+      ]);
+      animations.push([
+        0, array[0]
+      ]);
+      if (array[j] < array[min_index]) {
+        min_index = j;
+      }
+    }
+    animations.push([i, min_index]);
+    animations.push([i, min_index]);
+    animations.push([
+      i, array[min_index]
+    ]);
+    animations.push([
+      min_index, array[i]
+    ]);
+    let temp = array[min_index];
+    array[min_index] = array[i];
+    array[i] = temp;
+  }
+}

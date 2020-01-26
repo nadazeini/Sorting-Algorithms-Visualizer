@@ -1,10 +1,10 @@
 import React from "react";
 import "./SortingVisualizer.css";
-import {getMergeSortAnimations, getBubbleSortAnimations, getInsertionSortAnimations} from "../SortingAlgorithms/sortingAlgorithms.js";
+import {getMergeSortAnimations, getBubbleSortAnimations, getInsertionSortAnimations, getSelectionSortAnimations} from "../SortingAlgorithms/sortingAlgorithms.js";
 import $ from "jquery";
-const PRIMARY_COLOR = "orange";
-const SECONDARY_COLOR = "black";
-const THIRD_COLOR = "rgb(195, 146, 223)";
+const PRIMARY_COLOR = "rgb(255, 198, 92)";
+const SECONDARY_COLOR = "purple";
+const THIRD_COLOR = "rgb(255, 198, 92)";
 const ARRAY_LENGTH = 37;
 
 export default class SortingVisualizer extends React.Component {
@@ -14,7 +14,7 @@ export default class SortingVisualizer extends React.Component {
     this.state = {
       array: [],
       sorted: false,
-      speed: 30,
+      speed: 3,
       stop: false
     };
   }
@@ -50,19 +50,17 @@ export default class SortingVisualizer extends React.Component {
     document.getElementById("bubble").disabled = true;
     document.getElementById("selection").disabled = true;
     document.getElementById("insertion").disabled = true;
-    document.getElementById("pancake").disabled = true;
     document.getElementById("heap").disabled = true;
     document.getElementById("merge").disabled = true;
 
-    document.getElementById("shuffle").title = "Disabled. Click See Another";
-    document.getElementById("speed").title = "Disabled while sorting, use stop button";
-    document.getElementById("quick").title = "Disabled while sorting, use stop button";
-    document.getElementById("bubble").title = "Disabled while sorting, use stop button";
-    document.getElementById("selection").title = "Disabled while sorting, use stop button";
-    document.getElementById("insertion").title = "Disabled while sorting, use stop button";
-    document.getElementById("heap").title = "Disabled while sorting, use stop button";
-    document.getElementById("pancake").title = "Disabled while sorting, use stop button";
-    document.getElementById("merge").title = "Disabled while sorting, use stop button";
+    document.getElementById("shuffle").title = "Click See Another";
+    document.getElementById("speed").title = "Click See Another";
+    document.getElementById("quick").title = "Click See Another";
+    document.getElementById("bubble").title = "Click See Another";
+    document.getElementById("selection").title = "Click See Another";
+    document.getElementById("insertion").title = "Click See Another";
+    document.getElementById("heap").title = "Click See Another";
+    document.getElementById("merge").title = "Click See Another";
   }
   enableButtons() {
     document.getElementById("shuffle").disabled = false;
@@ -71,7 +69,6 @@ export default class SortingVisualizer extends React.Component {
     document.getElementById("bubble").disabled = false;
     document.getElementById("selection").disabled = false;
     document.getElementById("insertion").disabled = false;
-    document.getElementById("pancake").disabled = false;
     document.getElementById("heap").disabled = false;
     document.getElementById("merge").disabled = false;
   }
@@ -85,7 +82,7 @@ export default class SortingVisualizer extends React.Component {
           </button>
           <div className="dropdown">
             <button className=" dropdownMenuButton btn btn-secondary dropdown-toggle boot-background boot-color boot-hover" type="button" id="speed" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Speed
+              Fast
               <span className="caret"/>
             </button>
             <div className="dropdown-menu boot-background boot-color " aria-labelledby="dropdownMenuButton">
@@ -110,9 +107,6 @@ export default class SortingVisualizer extends React.Component {
         </button>
         <button type="button" id="quick" className="btn btn-outline-secondary boot-background boot-color boot-hover" onClick={() => this.quickSort()}>
           Quick Sort
-        </button>
-        <button type="button" id="pancake" className="btn btn-outline-secondary boot-background boot-color boot-hover" onClick={() => this.pancakeSort()}>
-          Pancake Sort
         </button>
         <button type="button" id="heap" className="btn btn-outline-secondary boot-background boot-color boot-hover" onClick={() => this.heapSort()}>
           Heap Sort
@@ -270,10 +264,49 @@ export default class SortingVisualizer extends React.Component {
       }
     }
   }
+  selectionSort() {
+    this.disableButtons();
+    let array = this.state.array;
+    const animations = getSelectionSortAnimations(array);
+
+    for (let i = 0; i < animations.length; i++) {
+      const arrayBars = document.getElementsByClassName("array-bar");
+      const arrayBarsWithNo = document.getElementsByClassName("array-container");
+      const numbersBars = document.getElementsByClassName("numbers");
+      //color change is on ever 4 indexes: 0, 4, 8 ...
+      const colorChange = i % 4 <= 1;
+      if (colorChange) {
+        const [barOneIdx, barTwoIdx] = animations[i];
+        const barOneStyle = arrayBars[barOneIdx].style;
+        const barTwoStyle = arrayBars[barTwoIdx].style;
+        const barOneStyleNo = arrayBarsWithNo[barOneIdx].style;
+        const barTwoStyleNo = arrayBarsWithNo[barTwoIdx].style;
+        const color = i % 4 === 0
+          ? SECONDARY_COLOR
+          : THIRD_COLOR;
+        setTimeout(() => {
+          barOneStyle.backgroundColor = color;
+          barTwoStyle.backgroundColor = color;
+          barOneStyleNo.backgroundColor = color;
+          barTwoStyleNo.backgroundColor = color;
+        }, i * this.state.speed);
+      } else {
+        const [barOneIdx, newHeight] = animations[i];
+        const barOneStyle = arrayBars[barOneIdx].style;
+        let newH = newHeight;
+        newH = newH.toString().replace("px", "");
+        //console.log(numbersBars[barOneIdx]);
+        setTimeout(() => {
+          const [barOneIdx, newHeight] = animations[i];
+          const barOneStyle = arrayBars[barOneIdx].style;
+          numbersBars[barOneIdx].textContent = newH; //
+          barOneStyle.height = `${newHeight}px`;
+        }, i * this.state.speed);
+      }
+    }
+  }
   quickSort() {}
-  pancakeSort() {}
   heapSort() {}
-  selectionSort() {}
 }
 
 function randomInt(min, max) {
