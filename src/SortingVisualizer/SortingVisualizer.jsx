@@ -1,6 +1,6 @@
 import React from "react";
 import "./SortingVisualizer.css";
-import {getMergeSortAnimations, getBubbleSortAnimations, getInsertionSortAnimations, getSelectionSortAnimations} from "../SortingAlgorithms/sortingAlgorithms.js";
+import {getMergeSortAnimations, getBubbleSortAnimations, getInsertionSortAnimations, getSelectionSortAnimations, getHeapSortAnimations} from "../SortingAlgorithms/sortingAlgorithms.js";
 import $ from "jquery";
 const PRIMARY_COLOR = "rgb(255, 198, 92)";
 const SECONDARY_COLOR = "purple";
@@ -250,8 +250,7 @@ export default class SortingVisualizer extends React.Component {
           barTwoStyleNo.backgroundColor = color;
         }, i * this.state.speed);
       } else {
-        const [barOneIdx, newHeight] = animations[i];
-        const barOneStyle = arrayBars[barOneIdx].style;
+        const [, newHeight] = animations[i];
         let newH = newHeight;
         newH = newH.toString().replace("px", "");
         //console.log(numbersBars[barOneIdx]);
@@ -291,8 +290,8 @@ export default class SortingVisualizer extends React.Component {
           barTwoStyleNo.backgroundColor = color;
         }, i * this.state.speed);
       } else {
-        const [barOneIdx, newHeight] = animations[i];
-        const barOneStyle = arrayBars[barOneIdx].style;
+        const [, newHeight] = animations[i];
+        //const barOneStyle = arrayBars[barOneIdx].style;
         let newH = newHeight;
         newH = newH.toString().replace("px", "");
         //console.log(numbersBars[barOneIdx]);
@@ -305,8 +304,55 @@ export default class SortingVisualizer extends React.Component {
       }
     }
   }
+  //HEAP SORT
+  //******************************************************************************************************************************************************************************************************************************************************************************************************************** */
+  heapSort() {
+    this.animateAlgo(getHeapSortAnimations(this.state.array));
+  }
+  //Quick SORT
+  //******************************************************************************************************************************************************************************************************************************************************************************************************************** */
   quickSort() {}
-  heapSort() {}
+
+  animateAlgo(animations) {
+    this.disableButtons();
+    // let array = this.state.array;
+    //const animations = animation;
+    for (let i = 0; i < animations.length; i++) {
+      const arrayBars = document.getElementsByClassName("array-bar");
+      const arrayBarsWithNo = document.getElementsByClassName("array-container");
+      const numbersBars = document.getElementsByClassName("numbers");
+      //color change is on ever 4 indexes: 0, 4, 8 ...
+      const colorChange = i % 4 <= 1;
+      if (colorChange) {
+        const [barOneIdx, barTwoIdx] = animations[i];
+        const barOneStyle = arrayBars[barOneIdx].style;
+        const barTwoStyle = arrayBars[barTwoIdx].style;
+        const barOneStyleNo = arrayBarsWithNo[barOneIdx].style;
+        const barTwoStyleNo = arrayBarsWithNo[barTwoIdx].style;
+        const color = i % 4 === 0
+          ? SECONDARY_COLOR
+          : THIRD_COLOR;
+        setTimeout(() => {
+          barOneStyle.backgroundColor = color;
+          barTwoStyle.backgroundColor = color;
+          barOneStyleNo.backgroundColor = color;
+          barTwoStyleNo.backgroundColor = color;
+        }, i * this.state.speed);
+      } else {
+        const [, newHeight] = animations[i];
+        // /const barOneStyle = arrayBars[barOneIdx].style;
+        let newH = newHeight;
+        newH = newH.toString().replace("px", "");
+        //console.log(numbersBars[barOneIdx]);
+        setTimeout(() => {
+          const [barOneIdx, newHeight] = animations[i];
+          const barOneStyle = arrayBars[barOneIdx].style;
+          numbersBars[barOneIdx].textContent = newH; //
+          barOneStyle.height = `${newHeight}px`;
+        }, i * this.state.speed);
+      }
+    }
+  }
 }
 
 function randomInt(min, max) {
