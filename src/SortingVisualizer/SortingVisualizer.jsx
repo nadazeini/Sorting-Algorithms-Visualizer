@@ -5,7 +5,6 @@ import $ from "jquery";
 const PRIMARY_COLOR = "rgb(255, 198, 92)";
 const SECONDARY_COLOR = "purple";
 const THIRD_COLOR = "rgb(255, 198, 92)";
-const ARRAY_LENGTH = 37;
 
 export default class SortingVisualizer extends React.Component {
   constructor(props) {
@@ -13,10 +12,15 @@ export default class SortingVisualizer extends React.Component {
     //this.selectSpeed = this.selectSpeed.bind(this);
     this.state = {
       array: [],
-      sorted: false,
-      speed: 3,
-      stop: false
+      array_length: 37, //props.array_length,
+      speed: 3
     };
+    // this.toggle_length = this.toggle_length.bind(this);
+  }
+  toggle_length(val) {
+    console.log(val);
+    this.setState({array_length: val});
+    this.resetArray();
   }
   componentDidMount() {
     //first time loading
@@ -25,7 +29,9 @@ export default class SortingVisualizer extends React.Component {
   resetArray() {
     //creates array
     const array = [];
-    for (let i = 0; i < ARRAY_LENGTH; i++) {
+    // let len = this.state.array_length;
+
+    for (let i = 0; i < this.state.array_length; i++) {
       array.push(randomInt(5, 500));
     }
     this.setState({array});
@@ -52,7 +58,7 @@ export default class SortingVisualizer extends React.Component {
     document.getElementById("insertion").disabled = true;
     document.getElementById("heap").disabled = true;
     document.getElementById("merge").disabled = true;
-
+    document.getElementById("slider").disabled = true;
     document.getElementById("shuffle").title = "Click See Another";
     document.getElementById("speed").title = "Click See Another";
     document.getElementById("quick").title = "Click See Another";
@@ -61,6 +67,7 @@ export default class SortingVisualizer extends React.Component {
     document.getElementById("insertion").title = "Click See Another";
     document.getElementById("heap").title = "Click See Another";
     document.getElementById("merge").title = "Click See Another";
+    document.getElementById("slider").title = "Click See Another";
   }
   enableButtons() {
     document.getElementById("shuffle").disabled = false;
@@ -71,11 +78,20 @@ export default class SortingVisualizer extends React.Component {
     document.getElementById("insertion").disabled = false;
     document.getElementById("heap").disabled = false;
     document.getElementById("merge").disabled = false;
+    document.getElementById("slider").disabled = false;
   }
   render() {
     const {array} = this.state;
     return (<div className="container">
       <div className="nav-bar">
+        <div className="row justify-content-center pb-3 ">
+          <div className="col-md-3 ">
+            <div className="slider row justify-content-center">
+              <label className="boot-color">Number of Bars</label>
+              <input id="slider" className="slider1 custom-range" value={this.state.array_length} onChange={e => this.toggle_length(e.target.value)} name="arraySize" type="range" min="5" max="275"/>
+            </div>
+          </div>
+        </div>
         <div className="btn-group mr-2" role="group" aria-label="First group">
           <button id="shuffle" type="button" className="btn btn-secondary boot-background boot-color boot-hover" onClick={() => this.resetArray()}>
             Shuffle
@@ -221,7 +237,6 @@ export default class SortingVisualizer extends React.Component {
       }
     }
   }
-  //INSERTION SORT
   //******************************************************************************************************************************************************************************************************************************************************************************************************************** */
   inserstionSort() {
     this.animateAlgo(getInsertionSortAnimations(this.state.array));
@@ -229,13 +244,9 @@ export default class SortingVisualizer extends React.Component {
   selectionSort() {
     this.animateAlgo(getSelectionSortAnimations(this.state.array));
   }
-  //HEAP SORT
-  //******************************************************************************************************************************************************************************************************************************************************************************************************************** */
   heapSort() {
     this.animateAlgo(getHeapSortAnimations(this.state.array));
   }
-  //Quick SORT
-  //******************************************************************************************************************************************************************************************************************************************************************************************************************** */
   quickSort() {}
 
   animateAlgo(animations) {
@@ -283,12 +294,7 @@ export default class SortingVisualizer extends React.Component {
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
-/*$(document).ready(function() {
-	$('.dropdown-item').click(function() {
-		console.log($(this).text());
-	});
-});*/
-
+//takes care of drop down button: changes text when you change speed
 $(document).ready(function () {
   $(".dropdown-menu  button").click(function () {
     $(".dropdownMenuButton:first-child").html($(this).text() + ' <span class="caret"></span>');
