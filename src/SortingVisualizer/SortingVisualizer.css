@@ -4,18 +4,18 @@
 	border: 1px solid white;
 	position: relative;
 
-	/*remove top later top: 10vh; */
+	
 }
 .array-bar {
-	width: 2px; /*28*/
+	display: inline-block;
+	position: relative;
 	background: rgb(255, 198, 92);
+	
 }
-.numbers {
-	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-	font-weight: bold;
-	font-style: oblique;
-	color: white;
-	font-size: 0px;/*12*/
+.container{
+	justify-content: center;
+
+	
 }
 .nav-bar {
 	position: relative;
