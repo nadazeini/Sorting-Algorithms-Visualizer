@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/algo-vis/static/css/main.48b1e047.chunk.css",
-    "main.js": "/algo-vis/static/js/main.6a82f602.chunk.js",
-    "main.js.map": "/algo-vis/static/js/main.6a82f602.chunk.js.map",
+    "main.css": "/algo-vis/static/css/main.e8ee1af8.chunk.css",
+    "main.js": "/algo-vis/static/js/main.0c128007.chunk.js",
+    "main.js.map": "/algo-vis/static/js/main.0c128007.chunk.js.map",
     "runtime-main.js": "/algo-vis/static/js/runtime-main.28543694.js",
     "runtime-main.js.map": "/algo-vis/static/js/runtime-main.28543694.js.map",
     "static/js/2.ac5b9385.chunk.js": "/algo-vis/static/js/2.ac5b9385.chunk.js",
     "static/js/2.ac5b9385.chunk.js.map": "/algo-vis/static/js/2.ac5b9385.chunk.js.map",
     "index.html": "/algo-vis/index.html",
-    "precache-manifest.1e28af8b10ce6681733ed131b185637a.js": "/algo-vis/precache-manifest.1e28af8b10ce6681733ed131b185637a.js",
+    "precache-manifest.7e79379188521548fbabf7b32b211e9b.js": "/algo-vis/precache-manifest.7e79379188521548fbabf7b32b211e9b.js",
     "service-worker.js": "/algo-vis/service-worker.js",
-    "static/css/main.48b1e047.chunk.css.map": "/algo-vis/static/css/main.48b1e047.chunk.css.map",
+    "static/css/main.e8ee1af8.chunk.css.map": "/algo-vis/static/css/main.e8ee1af8.chunk.css.map",
     "static/js/2.ac5b9385.chunk.js.LICENSE": "/algo-vis/static/js/2.ac5b9385.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.28543694.js",
     "static/js/2.ac5b9385.chunk.js",
-    "static/css/main.48b1e047.chunk.css",
-    "static/js/main.6a82f602.chunk.js"
+    "static/css/main.e8ee1af8.chunk.css",
+    "static/js/main.0c128007.chunk.js"
   ]
 }
