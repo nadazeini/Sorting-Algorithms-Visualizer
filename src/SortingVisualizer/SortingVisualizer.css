@@ -7,7 +7,7 @@
 	/*remove top later top: 10vh; */
 }
 .array-bar {
-	width: 28px;
+	width: 2px; /*28*/
 	background: rgb(255, 198, 92);
 }
 .numbers {
@@ -15,7 +15,7 @@
 	font-weight: bold;
 	font-style: oblique;
 	color: white;
-	font-size: 12px;
+	font-size: 0px;/*12*/
 }
 .nav-bar {
 	position: relative;
@@ -28,5 +28,16 @@
 	color: rgb(195, 146, 223);
 }
 .boot-hover:hover {
+	background-color:rgb(255, 198, 92);
+}
+.slider1::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	background: rgb(195, 146, 223);
+	cursor: pointer;
+  }
+.slider1::-webkit-slider-thumb:active{
+	background-color:rgb(255, 198, 92);
+}
+.slider1::-webkit-slider-thumb:focus{
 	background-color:rgb(255, 198, 92);
 }
