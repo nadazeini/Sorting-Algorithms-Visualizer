@@ -6,7 +6,7 @@ By: **Nada ElZeini**
 
 ## Check it out!!!
 
-https://nadazeini.github.io/algo-vis/
+https://nadazeini.github.io/Sorting-Algorithms-Visualizer/
 
 
 ## Improvements/ To be done
